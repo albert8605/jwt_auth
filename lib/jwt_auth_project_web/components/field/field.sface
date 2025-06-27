@@ -1,0 +1,13 @@
+<Field {=@name}>
+    {#case @type}
+        {#match :checkbox}
+            <JwtAuthProjectWeb.Components.Checkbox {=@value} {=@label} opts={@opts} />
+        {#match :password}
+            <JwtAuthProjectWeb.Components.Password id={@name} {=@values} {=@value} {=@label} opts={@opts} {=@is_error} />
+        {#match _}
+            <JwtAuthProjectWeb.Components.TextInput {=@values} {=@value} {=@label} opts={@opts} {=@is_error} />
+    {/case}
+    {#if @required}
+      <ErrorTag translator={& &1} class="block m-0 text-[10px] text-right font-sans font-normal leading-6 text-error" />
+    {/if}
+</Field>

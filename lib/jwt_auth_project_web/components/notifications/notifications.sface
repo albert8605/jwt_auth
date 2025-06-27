@@ -1,0 +1,24 @@
+<div class="fixed top-4 right-4 z-50 flex flex-col gap-2">
+  {#for notification <- @notifications}
+    <div
+      :key={notification[:id] || notification["id"] || notification[:message]}
+      class={"flex items-start p-4 rounded shadow-lg min-w-[250px] max-w-xs " <> notification_class(notification[:type])}
+      :hook="AutoDismissNotification"
+      data-id={notification[:id] || notification["id"] || notification[:message]}
+      id={"notifications-#{(notification[:id] || notification["id"] || notification[:message])}"}
+    >
+      <div class="flex-1">
+        {#if notification[:title]}
+          <p class="font-semibold mb-1 text-sm">{notification[:title]}</p>
+        {/if}
+        <p class="text-sm">{notification[:message]}</p>
+      </div>
+      <button
+        type="button"
+        class="ml-2 text-lg font-bold opacity-50 hover:opacity-100"
+        :on-click="dismiss_notification"
+        phx-value-id={notification[:id] || notification["id"] || notification[:message]}
+      >&times;</button>
+    </div>
+  {/for}
+</div> 
